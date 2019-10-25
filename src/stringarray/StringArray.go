@@ -1,4 +1,4 @@
-package utils
+package stringarray
 
 func contains(stringArray []string, str string) int {
 	var index = -1

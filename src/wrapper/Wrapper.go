@@ -3,7 +3,7 @@ package wrapper
 import (
 	"RocketmqExporter/model"
 	"RocketmqExporter/utils"
-	//"bytes"
+	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -79,6 +79,8 @@ func GetConsumerListByTopic(rocketmqConsoleIPAndPort string, topicName string) *
 
 	var url = "http://" + rocketmqConsoleIPAndPort + "/topic/queryConsumerByTopic.query?topic=" + topicName
 	var content = utils.HttpUrl(url)
+
+	fmt.Println(bytes.NewBuffer(content).String())
 
 	var jsonData *model.ConsumerList_By_Topic
 	err := json.Unmarshal([]byte(content), &jsonData)
