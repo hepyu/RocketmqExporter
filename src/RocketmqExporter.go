@@ -2,10 +2,11 @@ package main
 
 import (
 	//"RocketmqExporter/constant"
-	"RocketmqExporter/wrapper"
+	//"RocketmqExporter/wrapper"
 	//"RocketmqExporter/utils"
+	"RocketmqExporter/service"
 	//"bytes"
-	"fmt"
+	//"fmt"
 )
 
 func main() {
@@ -20,8 +21,11 @@ func main() {
 	//fmt.Println(bytes.NewBuffer(content).String())
 
 	//var content = wrapper.GetTopicNameList("127.0.0.1:30018")
-	var content = wrapper.GetConsumerListByTopic("127.0.0.1:30018", "BenchmarkTest")
-	fmt.Println("resp:")
-	fmt.Println(*content)
+	//var content = wrapper.GetConsumerListByTopic("rocketmq-admin.coohua-inc.com", "ne_add_gold_success")
+	//fmt.Println("resp:")
 
+	//fmt.Println(content)
+	//fmt.Println(*content)
+
+	service.MsgUnconsumedCount("rocketmq-admin.coohua-inc.com")
 }

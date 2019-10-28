@@ -1,6 +1,6 @@
 package stringarray
 
-func contains(stringArray []string, str string) int {
+func Contains(stringArray []string, str string) int {
 	var index = -1
 	var length = len(stringArray)
 	for i := 0; i < length; i++ {
