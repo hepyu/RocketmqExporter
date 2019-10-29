@@ -5,11 +5,11 @@ import (
 	"RocketmqExporter/model"
 	"RocketmqExporter/stringarray"
 	"RocketmqExporter/wrapper"
-	"fmt"
+	//"fmt"
 	"strings"
 )
 
-func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *string {
+func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *model.MsgDiff {
 
 	//获取rocketmq集群中的topicNameList
 	topicNameArray := wrapper.GetTopicNameList(rocketmqConsoleIPAndPort)
@@ -22,31 +22,31 @@ func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *string {
 
 	var rt *model.MsgDiff = new(model.MsgDiff)
 
-	var diff_Detail_Slice []model.MsgDiff_Detail = []model.MsgDiff_Detail{}
+	var diff_Detail_Slice []*model.MsgDiff_Detail
 
 	//按照topic聚合msgDiff
 	//var diff_Topic_Slice []model.MsgDiff_Topic = []model.MsgDiff_Topic{}
-	var diff_Topic_Map = make(map[string]model.MsgDiff_Topic)
+	var diff_Topic_Map = make(map[string]*model.MsgDiff_Topic)
 
 	//按照consumerGroup聚合msgDiff
 	//var diff_ConsumerGroup_Slice []model.MsgDiff_ConsumerGroup = []model.MsgDiff_ConsumerGroup{}
-	var diff_ConsumerGroup_Map = make(map[string]model.MsgDiff_ConsumerGroup)
+	var diff_ConsumerGroup_Map = make(map[string]*model.MsgDiff_ConsumerGroup)
 
 	//按照topic, consumeGroup聚合msgDiff
 	//var diff_Topic_ConsumerGroup_Slice []model.MsgDiff_Topics_ConsumerGroup = []model.MsgDiff_Topics_ConsumerGroup{}
-	var diff_Topic_ConsumerGroup_Map = make(map[string]model.MsgDiff_Topic_ConsumerGroup)
+	var diff_Topic_ConsumerGroup_Map = make(map[string]*model.MsgDiff_Topic_ConsumerGroup)
 
 	//按照broker聚合msgDiff
 	//var diff_Broker_Slice []model.MsgDiff_Broker = []model.MsgDiff_Broker{}
-	var diff_Broker_Map = make(map[string]model.MsgDiff_Broker)
+	var diff_Broker_Map = make(map[string]*model.MsgDiff_Broker)
 
 	//按照clientInfo聚合msgDiff
 	//var diff_Clientinfo_Slice []model.MsgDiff_ClientInfo = []model.MsgDiff_ClientInfo{}
-	var diff_Clientinfo_Map = make(map[string]model.MsgDiff_ClientInfo)
+	var diff_Clientinfo_Map = make(map[string]*model.MsgDiff_ClientInfo)
 
 	//按照queue聚合msgDiff
 	//var MsgDiff_Queue_Slice []model.MsgDiff_Queue = []model.MsgDiff_Queue{}
-	var diff_Queue_Map = make(map[string]model.MsgDiff_Queue)
+	var diff_Queue_Map = make(map[string]*model.MsgDiff_Queue)
 
 	for i := range topicNameArray {
 		var topicName = topicNameArray[i]
@@ -65,8 +65,8 @@ func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *string {
 
 		for cgName, consumerInfo := range topicConsumerGroups {
 			topic := consumerInfo.Topic
-			diffTotal := consumerInfo.DiffTotal
-			lastTimestamp = consumerInfo.LastTimestamp
+			//diffTotal := consumerInfo.DiffTotal
+			//lastTimestamp := consumerInfo.LastTimestamp
 
 			//获取当前consumer信息及对应的rocketmq-queue的信息
 			queueStatInfoList := consumerInfo.QueueStatInfoList
@@ -83,14 +83,20 @@ func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *string {
 				clientInfo := queue.ClientInfo
 				consumerClientIP := ""
 				consumerClientPID := ""
-				if clientInfo != nil {
+				if &clientInfo != nil {
 					temp_array := strings.Split(clientInfo, "@")
-					consumerClientIP = temp_array[0]
-					consumerClientPID = temp_array[1]
+					if temp_array != nil {
+						if len(temp_array) == 1 {
+							consumerClientIP = temp_array[0]
+						} else if len(temp_array) == 2 {
+							consumerClientIP = temp_array[0]
+							consumerClientPID = temp_array[1]
+						}
+					}
 				}
 
 				diff := int(queue.BrokerOffset) - int(queue.ConsumerOffset)
-				lastTimestamp = queue.LastTimestamp
+				//lastTimestamp = queue.LastTimestamp
 
 				diffDetail.Broker = brokerName
 				diffDetail.QueueId = queueId
@@ -155,8 +161,8 @@ func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *string {
 				}
 
 				//按照queueId进行msgDiff聚合
-				queuestr = brokerName + ":" + queueId
-				if _, ok := diff_Queue_Map[queueId]; ok {
+				queuestr := brokerName + ":" + string(queueId)
+				if _, ok := diff_Queue_Map[string(queueId)]; ok {
 					diff_Queue_Map[queuestr].Diff = diff_Queue_Map[queuestr].Diff + diff
 				} else {
 					var diff_Queue *model.MsgDiff_Queue = new(model.MsgDiff_Queue)
@@ -183,9 +189,6 @@ func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *string {
 				}
 
 			}
-
-			fmt.Println(topicConsumerGroups[cgName])
-			fmt.Println(consumerInfo)
 		}
 
 	}

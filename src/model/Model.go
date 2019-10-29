@@ -40,18 +40,18 @@ type QueueStatInfoList struct {
 //(3).mode for prometheus metrics
 
 type MsgDiff struct {
-	MsgDiff_Details               []MsgDiff_Detail                        `json:"msg_diff_details"`
-	MsgDiff_Topics                map[string]MsgDiff_Topic                `json:"msg_diff_topics"`
-	MsgDiff_ConsumerGroups        map[string]MsgDiff_ConsumerGroup        `json:"msg_diff_consumergroups"`
-	MsgDiff_Topics_ConsumerGroups map[string]MsgDiff_Topics_ConsumerGroup `json:"msg_diff_topics_consumergroups"`
-	MsgDiff_Brokers               map[string]MsgDiff_Broker               `json:"msg_diff_brokers"`
-	MsgDiff_Queues                map[string]MsgDiff_Queue                `json:"msg_diff_queues"`
-	MsgDiff_ClientInfos           map[string]MsgDiff_ClientInfo           `json:"msg_diff_clientinfos"`
+	MsgDiff_Details               []*MsgDiff_Detail                       `json:"msg_diff_details"`
+	MsgDiff_Topics                map[string]*MsgDiff_Topic               `json:"msg_diff_topics"`
+	MsgDiff_ConsumerGroups        map[string]*MsgDiff_ConsumerGroup       `json:"msg_diff_consumergroups"`
+	MsgDiff_Topics_ConsumerGroups map[string]*MsgDiff_Topic_ConsumerGroup `json:"msg_diff_topics_consumergroups"`
+	MsgDiff_Brokers               map[string]*MsgDiff_Broker              `json:"msg_diff_brokers"`
+	MsgDiff_Queues                map[string]*MsgDiff_Queue               `json:"msg_diff_queues"`
+	MsgDiff_ClientInfos           map[string]*MsgDiff_ClientInfo          `json:"msg_diff_clientinfos"`
 }
 
 type MsgDiff_Detail struct {
 	Broker            string `json:"broker"`
-	QueueId           string `json:"queueId"`
+	QueueId           int    `json:"queueId"`
 	ConsumerClientIP  string `json:"consumerClientIP"`
 	ConsumerClientPID string `json:"consumerClientPID"`
 	Diff              int    `json:"diff"`
@@ -82,7 +82,7 @@ type MsgDiff_Broker struct {
 
 type MsgDiff_Queue struct {
 	Broker  string `json:"broker"`
-	QueueId string `json:"queueId"`
+	QueueId int    `json:"queueId"`
 	Diff    int    `json:"diff"`
 }
 
