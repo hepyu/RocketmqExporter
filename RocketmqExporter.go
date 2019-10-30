@@ -12,16 +12,16 @@ import (
 	"github.com/prometheus/common/version"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"net/http"
-	"time"
+	//"time"
 )
 
 func main() {
 
 	promlogConfig := &promlog.Config{}
-	fmt.Println(promlogConfig)
 	flag.AddFlags(kingpin.CommandLine, promlogConfig)
-	fmt.Println(promlogConfig)
+
 	kingpin.Version(version.Print("rocketmq_exporter"))
+	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
 
 	logger := promlog.New(promlogConfig)
@@ -39,7 +39,7 @@ func main() {
 
 	level.Info(logger).Log("msg", "fmt.metricsPath:"+metricsPath)
 
-	time.Sleep(3 * time.Hour)
+	//time.Sleep(3*time.Hour)
 
 	exporter := DeclareExporter(metricsPrefix)
 	prometheus.MustRegister(exporter)
