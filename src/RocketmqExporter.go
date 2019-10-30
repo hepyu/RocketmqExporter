@@ -1,21 +1,18 @@
 package main
 
 import (
+	"RocketmqExporter/constant"
 	"fmt"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
 )
 
-func metrics() {
-
-}
-
 func main() {
 
-	metricsPath := "/metrics"
-	listenAddress := ":8081"
-	metricsPrefix := "rocketmq"
+	metricsPath := constant.GetMetricsPath()
+	listenAddress := constant.GetListenAddress()
+	metricsPrefix := constant.GetMetricsPrefix()
 
 	exporter := DeclareExporter(metricsPrefix)
 	prometheus.MustRegister(exporter)

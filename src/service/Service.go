@@ -3,7 +3,7 @@ package service
 import (
 	"RocketmqExporter/constant"
 	"RocketmqExporter/model"
-	"RocketmqExporter/stringarray"
+	"RocketmqExporter/utils"
 	"RocketmqExporter/wrapper"
 	//"fmt"
 	"strings"
@@ -18,7 +18,7 @@ func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *model.MsgDiff {
 	}
 
 	//获取不纳入监控的topicNameList
-	var ignoredTopicNameList = constant.GetIgnoredTopicList()
+	var ignoredTopicNameList = constant.GetIgnoredTopicArray()
 
 	var rt *model.MsgDiff = new(model.MsgDiff)
 
@@ -50,7 +50,7 @@ func MsgUnconsumedCount(rocketmqConsoleIPAndPort string) *model.MsgDiff {
 
 	for i := range topicNameArray {
 		var topicName = topicNameArray[i]
-		index := stringarray.Contains(ignoredTopicNameList, topicName)
+		index := utils.Contains(ignoredTopicNameList, topicName)
 		if index >= 0 {
 			continue
 		}
