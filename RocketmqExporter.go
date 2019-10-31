@@ -3,7 +3,6 @@ package main
 import (
 	"RocketmqExporter/constant"
 	"fmt"
-	//"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -12,7 +11,6 @@ import (
 	"github.com/prometheus/common/version"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"net/http"
-	//"time"
 )
 
 func main() {
@@ -33,13 +31,7 @@ func main() {
 	listenAddress := constant.GetListenAddress()
 	metricsPrefix := constant.GetMetricsPrefix()
 
-	fmt.Println("fmt.metricsPath:" + metricsPath)
-	fmt.Println("fmt.listenAddress:" + listenAddress)
-	fmt.Println("fmt.metricsPrefix:" + metricsPrefix)
-
 	level.Info(logger).Log("msg", "fmt.metricsPath:"+metricsPath)
-
-	//time.Sleep(3*time.Hour)
 
 	exporter := DeclareExporter(metricsPrefix)
 	prometheus.MustRegister(exporter)

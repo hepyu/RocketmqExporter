@@ -1,0 +1,18 @@
+go:
+    # Whenever the Go version is updated here, .travis.yml and
+    # .circle/config.yml should also be updated.
+    version: 1.13
+repository:
+    path: github.com/hepyu/hpy-go-rocketmq-exporter
+build:
+    flags: -mod=vendor -a -tags netgo
+    ldflags: |
+        -X github.com/prometheus/common/version.Version={{.Version}}
+        -X github.com/prometheus/common/version.Revision={{.Revision}}
+        -X github.com/prometheus/common/version.Branch={{.Branch}}
+        -X github.com/prometheus/common/version.BuildUser={{user}}@{{host}}
+        -X github.com/prometheus/common/version.BuildDate={{date "20191030-15:04:05"}}
+tarball:
+    files:
+        - LICENSE
+        - NOTICE

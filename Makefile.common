@@ -110,7 +110,7 @@ endif
 
 .PHONY: common-all
 #common-all: precheck style check_license lint unused build test
-common-all: precheck style lint unused build test
+common-all: build test
 
 .PHONY: common-style
 common-style:
@@ -122,16 +122,16 @@ common-style:
 		exit 1; \
 	fi
 
-#.PHONY: common-check_license
-#common-check_license:
-#	@echo ">> checking license header"
-#	@licRes=$$(for file in $$(find . -type f -iname '*.go' ! -path './vendor/*') ; do \
-#               awk 'NR<=3' $$file | grep -Eq "(Copyright|generated|GENERATED)" || echo $$file; \
-#       done); \
-#       if [ -n "$${licRes}" ]; then \
-#               echo "license header checking failed:"; echo "$${licRes}"; \
-#               exit 1; \
-#       fi
+.PHONY: common-check_license
+common-check_license:
+	@echo ">> checking license header"
+	@licRes=$$(for file in $$(find . -type f -iname '*.go' ! -path './vendor/*') ; do \
+               awk 'NR<=3' $$file | grep -Eq "(Copyright|generated|GENERATED)" || echo $$file; \
+       done); \
+       if [ -n "$${licRes}" ]; then \
+               echo "license header checking failed:"; echo "$${licRes}"; \
+               exit 1; \
+       fi
 
 .PHONY: common-deps
 common-deps:

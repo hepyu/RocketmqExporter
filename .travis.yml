@@ -1,0 +1,23 @@
+dist: trusty
+sudo: required
+language: go
+
+# Whenever the Go version is updated here, .circleci/config.yml and .promu.yml
+# should also be updated.
+go:
+- 1.13.3
+
+#env:
+#- MYSQL_IMAGE=mysql/mysql-server:5.5
+
+services:
+- docker
+
+go_import_path: github.com/prometheus/hpy-go-rocketmq-exporter
+
+before_script:
+- docker --version
+
+script:
+- make build
+- make test
