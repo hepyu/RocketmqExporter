@@ -104,4 +104,208 @@ vendor.json
 }
 ```
 
-下载包依赖到vendor目录，执行命令：govendor fetch +out，时间很长。
+下载包依赖到vendor目录，执行命令：govendor fetch +out，时间比较长(本工程下提供一个已经编译好的二进制文件：hpy-go-rocketmq-exporter，这个可以直接用于镜像制作)。
+
+执行完成后，vendor目录下：
+
+```
+github.com
+golang.org
+gopkg.in
+RocketmqExporter
+vendor.json
+```
+
+vendor.json内容：
+
+```
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"path": "RocketmqExporter/constant",
+			"revision": ""
+		},
+		{
+			"path": "RocketmqExporter/model",
+			"revision": ""
+		},
+		{
+			"path": "RocketmqExporter/service",
+			"revision": ""
+		},
+		{
+			"path": "RocketmqExporter/utils",
+			"revision": ""
+		},
+		{
+			"path": "RocketmqExporter/wrapper",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "MXqUZAuWyiMWV7HC0X2krRinZoI=",
+			"path": "github.com/alecthomas/template",
+			"revision": "fb15b899a75114aa79cc930e33c46b577cc664b1",
+			"revisionTime": "2019-07-18T01:26:54Z"
+		},
+		{
+			"checksumSHA1": "3wt0pTXXeS+S93unwhGoLIyGX/Q=",
+			"path": "github.com/alecthomas/template/parse",
+			"revision": "fb15b899a75114aa79cc930e33c46b577cc664b1",
+			"revisionTime": "2019-07-18T01:26:54Z"
+		},
+		{
+			"checksumSHA1": "VT42paM42J+M52CXStvRwsc1v6g=",
+			"path": "github.com/alecthomas/units",
+			"revision": "f65c72e2690dc4b403c8bd637baf4611cd4c069b",
+			"revisionTime": "2019-09-24T02:57:48Z"
+		},
+		{
+			"checksumSHA1": "0rido7hYHQtfq3UJzVT5LClLAWc=",
+			"path": "github.com/beorn7/perks/quantile",
+			"revision": "37c8de3658fcb183f997c4e13e8337516ab753e6",
+			"revisionTime": "2019-07-31T12:00:54Z"
+		},
+		{
+			"path": "github.com/cespare/xxhash/v2",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "eVc+4p1fDrG3e49wZuztY6D2txA=",
+			"path": "github.com/go-kit/kit/log",
+			"revision": "9f5354e50d79d79d865f684fe139811cf309870f",
+			"revisionTime": "2019-10-18T12:22:45Z"
+		},
+		{
+			"checksumSHA1": "dyVQWAYHLspsCzhDwwfQjvkOtMk=",
+			"path": "github.com/go-kit/kit/log/level",
+			"revision": "9f5354e50d79d79d865f684fe139811cf309870f",
+			"revisionTime": "2019-10-18T12:22:45Z"
+		},
+		{
+			"checksumSHA1": "g8yM1TRZyIjXtopiqbslzgLqtM0=",
+			"path": "github.com/go-logfmt/logfmt",
+			"revision": "07c9b44f60d7ffdfb7d8efe1ad539965737836dc",
+			"revisionTime": "2018-11-22T01:56:15Z"
+		},
+		{
+			"checksumSHA1": "Q3FteGbNvRRUMJqbYbmrcBd2DMo=",
+			"path": "github.com/golang/protobuf/proto",
+			"revision": "ed6926b37a637426117ccab59282c3839528a700",
+			"revisionTime": "2019-10-22T19:55:53Z"
+		},
+		{
+			"checksumSHA1": "abKzFXAn0KDr5U+JON1ZgJ2lUtU=",
+			"path": "github.com/kr/logfmt",
+			"revision": "b84e30acd515aadc4b783ad4ff83aff3299bdfe0",
+			"revisionTime": "2014-02-26T03:06:59Z"
+		},
+		{
+			"checksumSHA1": "bKMZjd2wPw13VwoE7mBeSv5djFA=",
+			"path": "github.com/matttproud/golang_protobuf_extensions/pbutil",
+			"revision": "c182affec369e30f25d3eb8cd8a478dee585ae7d",
+			"revisionTime": "2018-12-31T17:19:20Z"
+		},
+		{
+			"checksumSHA1": "I7hloldMJZTqUx6hbVDp5nk9fZQ=",
+			"path": "github.com/pkg/errors",
+			"revision": "27936f6d90f9c8e1145f11ed52ffffbfdb9e0af7",
+			"revisionTime": "2019-02-27T00:00:51Z"
+		},
+		{
+			"checksumSHA1": "HquvlxEmpILGOdePiJzqL/zMvUY=",
+			"path": "github.com/prometheus/client_golang/prometheus",
+			"revision": "333f01cef0d61f9ef05ada3d94e00e69c8d5cdda",
+			"revisionTime": "2019-10-24T23:19:15Z"
+		},
+		{
+			"checksumSHA1": "UBqhkyjCz47+S19MVTigxJ2VjVQ=",
+			"path": "github.com/prometheus/client_golang/prometheus/internal",
+			"revision": "333f01cef0d61f9ef05ada3d94e00e69c8d5cdda",
+			"revisionTime": "2019-10-24T23:19:15Z"
+		},
+		{
+			"checksumSHA1": "UcahVbxaRZ35Wh58lM9AWEbUEts=",
+			"path": "github.com/prometheus/client_golang/prometheus/promhttp",
+			"revision": "333f01cef0d61f9ef05ada3d94e00e69c8d5cdda",
+			"revisionTime": "2019-10-24T23:19:15Z"
+		},
+		{
+			"checksumSHA1": "V8xkqgmP66sq2ZW4QO5wi9a4oZE=",
+			"path": "github.com/prometheus/client_model/go",
+			"revision": "14fe0d1b01d4d5fc031dd4bec1823bd3ebbe8016",
+			"revisionTime": "2019-08-12T15:41:04Z"
+		},
+		{
+			"checksumSHA1": "vA545Z9FkjGvIHBTAKQOE0nap/k=",
+			"path": "github.com/prometheus/common/expfmt",
+			"revision": "b5fe7d854c42dc7842e48d1ca58f60feae09d77b",
+			"revisionTime": "2019-10-17T12:25:55Z"
+		},
+		{
+			"checksumSHA1": "1Mhfofk+wGZ94M0+Bd98K8imPD4=",
+			"path": "github.com/prometheus/common/internal/bitbucket.org/ww/goautoneg",
+			"revision": "b5fe7d854c42dc7842e48d1ca58f60feae09d77b",
+			"revisionTime": "2019-10-17T12:25:55Z"
+		},
+		{
+			"checksumSHA1": "ccmMs+h9Jo8kE7izqsUkWShD4d0=",
+			"path": "github.com/prometheus/common/model",
+			"revision": "b5fe7d854c42dc7842e48d1ca58f60feae09d77b",
+			"revisionTime": "2019-10-17T12:25:55Z"
+		},
+		{
+			"checksumSHA1": "Pj64Wsr2ji1uTv5l49J89Rff0hY=",
+			"path": "github.com/prometheus/common/promlog",
+			"revision": "b5fe7d854c42dc7842e48d1ca58f60feae09d77b",
+			"revisionTime": "2019-10-17T12:25:55Z"
+		},
+		{
+			"checksumSHA1": "3tSd7cWrq75N2PaoaqAe79Wa+Fw=",
+			"path": "github.com/prometheus/common/promlog/flag",
+			"revision": "b5fe7d854c42dc7842e48d1ca58f60feae09d77b",
+			"revisionTime": "2019-10-17T12:25:55Z"
+		},
+		{
+			"checksumSHA1": "91KYK0SpvkaMJJA2+BcxbVnyRO0=",
+			"path": "github.com/prometheus/common/version",
+			"revision": "b5fe7d854c42dc7842e48d1ca58f60feae09d77b",
+			"revisionTime": "2019-10-17T12:25:55Z"
+		},
+		{
+			"checksumSHA1": "/otbR/D9hWawJC2jDEqxLdYkryk=",
+			"path": "github.com/prometheus/procfs",
+			"revision": "34c83637414974b5e7d4bd700b49de3c66631989",
+			"revisionTime": "2019-10-22T16:02:49Z"
+		},
+		{
+			"checksumSHA1": "ax1TLBC8m/zLs8u//UHHdFf80q4=",
+			"path": "github.com/prometheus/procfs/internal/fs",
+			"revision": "34c83637414974b5e7d4bd700b49de3c66631989",
+			"revisionTime": "2019-10-22T16:02:49Z"
+		},
+		{
+			"checksumSHA1": "sxRjp2SwHqonjR+sHIEXCkfBglI=",
+			"path": "github.com/prometheus/procfs/internal/util",
+			"revision": "34c83637414974b5e7d4bd700b49de3c66631989",
+			"revisionTime": "2019-10-22T16:02:49Z"
+		},
+		{
+			"path": "golang.org/x/sys/windows",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "sToCp8GThnMnsBzsHv+L/tBYQrQ=",
+			"path": "gopkg.in/alecthomas/kingpin.v2",
+			"revision": "947dcec5ba9c011838740e680966fd7087a71d0d",
+			"revisionTime": "2017-12-17T18:08:21Z"
+		}
+	],
+	"rootPath": "hpy-go-rocketmq-exporter"
+}
+```
+
+3.编译hpy-go-rocketmq-exporter
+
+执行 make
