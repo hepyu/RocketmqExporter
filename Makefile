@@ -20,7 +20,8 @@ include Makefile.common
 
 STATICCHECK_IGNORE =
 
-DOCKER_IMAGE_NAME ?= hpy-go-rocketmq-exporter
+#DOCKER_IMAGE_NAME ?= hpy-go-rocketmq-exporter
+DOCKER_IMAGE_NAME ?= RocketmqExporter
 
 test-docker:
 	@echo ">> testing docker image"
