@@ -13,7 +13,7 @@ go:
 services:
 - docker
 
-go_import_path: github.com/prometheus/hpy-go-rocketmq-exporter
+go_import_path: github.com/prometheus/RocketmqExporter
 
 before_script:
 - docker --version
