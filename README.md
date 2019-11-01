@@ -1,4 +1,4 @@
-笔者第一语言是java，刚开始写go，所以组织风格可能与golang系有些区别。
+笔者第一语言是java，刚开始写go(本程序是笔者的golang处女码)，所以组织风格/写法可能与golang系有比较大的差别。
 
 # ().概述
 
@@ -306,6 +306,43 @@ vendor.json内容：
 }
 ```
 
+此时make会报错，找不到包github.com/cespare/xxhash/v2，这个是因为prometheus基于依赖于该包，而prometheus是基于gomod构建的，gomod支持能够识别xxhash后面的v2是指定的版本，而redis-shake使用的是govendor不支持版本，解决办法，可以下载github.com/cespare/xxhash/，然后把该文件夹中的内容都copy到github.com/cespare/xxhash/v2目录下即可。
+
+在vendor目录下执行：git clone https://github.com/cespare/xxhash.git github.com/cespare/xxhash/v2
+
 3.编译hpy-go-rocketmq-exporter
 
-执行 make
+执行 make 进行编译，打印信息如下：
+
+```
+>> building binaries
+GO111MODULE=on /root/go/bin/promu build --prefix /root/go-workspace/src/RocketmqExporter 
+ >   RocketmqExporter
+>> running all tests
+GO111MODULE=on go test -race  -mod=vendor ./...
+?   	RocketmqExporter	[no test files]
+?   	RocketmqExporter/constant	[no test files]
+?   	RocketmqExporter/model	[no test files]
+?   	RocketmqExporter/service	[no test files]
+?   	RocketmqExporter/utils	[no test files]
+?   	RocketmqExporter/wrapper	[no test files]
+>> vetting code
+GO111MODULE=on go vet  -mod=vendor ./...
+```
+
+编译成功后，在目录下会生成一个二进制文件RocketmqExporter，可以直接执行：./RocketmqExporter，打印如下信息说明成功(不用关心报错，因为没有配置参数到环境变量，找不到rocketmq-console)：
+
+```
+level=info ts=2019-11-01T09:19:57.879Z caller=RocketmqExporter.go:27 msg="Starting rocketmq_exporter" version="unsupported value type"
+level=info ts=2019-11-01T09:19:57.879Z caller=RocketmqExporter.go:28 msg="Build contenxt" (gogo1.13.3,userroot@future,date111911090-09:17:41)=(MISSING)
+level=info ts=2019-11-01T09:19:57.879Z caller=RocketmqExporter.go:34 msg=fmt.metricsPath:
+panic: http: invalid pattern
+
+goroutine 1 [running]:
+net/http.(*ServeMux).Handle(0xd47080, 0x0, 0x0, 0x9f72c0, 0xc000091ec0)
+	/usr/local/go/src/net/http/server.go:2397 +0x33a
+net/http.Handle(...)
+	/usr/local/go/src/net/http/server.go:2446
+main.main()
+	/root/go-workspace/src/RocketmqExporter/RocketmqExporter.go:39 +0x720
+```
