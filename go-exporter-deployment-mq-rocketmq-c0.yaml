@@ -1,0 +1,61 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: exporter-rocketmq-c0
+  namespace: monitor
+spec:
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: exporter-rocketmq-c0
+        rocketClusterName: rocketmq-c0
+        namesrvAddr: rocketmq-c0-console-prod-server
+        exporter: rocketmq
+    spec:
+      containers:
+      - name: exporter-rocketmq-c0
+        image: hpy253215039/hpy-go-rocketmq-exporter:1.0.0
+        env:
+        - name: rocketmqConsoleIPAndPort
+          value: "rocketmq-c0-console-prod-server.coohua:8080"
+        - name: ignoredTopics
+          value: "RMQ_SYS_TRANS_HALF_TOPIC,BenchmarkTest,OFFSET_MOVED_EVENT,TBW102,SELF_TEST_TOPIC,DefaultCluster,broker-b,broker-a"
+        - name: metricsPath
+          value: "/metrics"
+        - name: listenAddress
+          value: ":9104"
+        - name: metricsPrefix
+          value: "rocketmq"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+          limits:
+            cpu: 10m
+            memory: 10Mi
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 9104
+      #生产环境要换成你公司自己的secrets。
+      #imagePullSecrets:
+      #  - name: inc
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: exporter-rocketmq-c0
+  namespace: monitor
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9104"
+spec:
+  selector:
+    app: exporter-rocketmq-c0
+  ports:
+    - name: prom
+      port: 9104
+      targetPort: 9104
+      protocol: TCP
