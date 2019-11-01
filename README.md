@@ -56,4 +56,52 @@ java很不适合开发exporter的重要原因有一点就是，“启动时内�
 
 有点麻烦，我从开发(IDE用vim)到编译到image制作都是在linux服务器上，所以都是用的golang体系下原生命令进行操作的。
 
+## 1.安装go包依赖管理工具govendor
 
+go get -u -v github.com/kardianos/govendor
+
+## 2.使用govendor下载包依赖
+
+配置环境变量(注意source生效)：export GOPATH=$HOME/go:$HOME/go-workspace
+
+mkdir $HOME/go-workspace/src
+
+然后将本工程clone到目录$HOME/go-workspace/src。
+
+进入$HOME/go-workspace/src执行govendor命令列出工程依赖：govendor list
+
+```
+pl  hpy-go-rocketmq-exporter                                   
+ l  hpy-go-rocketmq-exporter/constant                          
+ l  hpy-go-rocketmq-exporter/model                             
+ l  hpy-go-rocketmq-exporter/service                           
+ l  hpy-go-rocketmq-exporter/utils                             
+ l  hpy-go-rocketmq-exporter/wrapper                           
+  m RocketmqExporter/constant                                  
+  m RocketmqExporter/model                                     
+  m RocketmqExporter/service                                   
+  m RocketmqExporter/utils                                     
+  m RocketmqExporter/wrapper                                   
+  m github.com/go-kit/kit/log/level                            
+  m github.com/prometheus/client_golang/prometheus             
+  m github.com/prometheus/client_golang/prometheus/promhttp    
+  m github.com/prometheus/common/promlog                       
+  m github.com/prometheus/common/promlog/flag                  
+  m github.com/prometheus/common/version                       
+  m gopkg.in/alecthomas/kingpin.v2
+```
+
+然后执行govendor init,会生成一个vdendor目录和vendor.json，后边下载的包依赖都会放到这个目录下。
+
+vendor.json
+
+```
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [],
+	"rootPath": "hpy-go-rocketmq-exporter"
+}
+```
+
+下载包依赖到vendor目录，执行命令：govendor fetch +out，时间很长。
