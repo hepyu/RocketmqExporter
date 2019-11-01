@@ -13,6 +13,7 @@
 
 6.[如何进行容器化部署](https://github.com/hepyu/RocketmqExporter/wiki/%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2)
 
-
+7.[如何进行实体机部署]
+(https://github.com/hepyu/RocketmqExporter/wiki/%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%AE%9E%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2)
 
 
