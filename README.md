@@ -17,4 +17,4 @@
 
 # TODO
 
-会把官方rocketmq-exporter的监控实现也用go重写到当前工程。
+后续有时间会把官方rocketmq-exporter的监控实现也用go重写到当前工程。
