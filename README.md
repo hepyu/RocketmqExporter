@@ -1,3 +1,17 @@
+# Summary
+
+监控指标：消息堆积数，精确到进程粒度。
+
+监控目的：实时掌控消息消费的健康程度。
+
+数据来源：从rocketmq-console的http请求获取数据。也就是说RocketmqExporter必须依赖rocketmq-console。好吧，我承认我图省事儿了^_^。
+
+为什么自己要重新实现： 官方exporter是java的，相对费资源；另外我们要求对消息堆积数有完备监控，且精确到进程级别。
+从topic, consumerGroup, broker,queueId, consumerClientIP, consumerClientPID等维度对消息堆积数进行聚合，如下图：
+
+<img src="https://github.com/hepyu/k8s-app-config/blob/master/product/standard/grafana-prometheus-pro/exporter-mq-rocketmq/images/mesage-unconsumed-count.jpg" width="100%">
+
+效果图下载地址：https://github.com/hepyu/k8s-app-config/blob/master/product/standard/grafana-prometheus-pro/exporter-mq-rocketmq/images/mesage-unconsumed-count.jpg
 
 # Usage
 
