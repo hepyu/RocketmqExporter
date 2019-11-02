@@ -33,7 +33,7 @@ func DeclareExporter(metricsPrefix string) *Exporter {
 
 	msgDiffConsumerGroup := *prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: metricsPrefix,
-		Name:      "msg_diff_consuemrgroup",
+		Name:      "msg_diff_consumergroup",
 		Help:      "msg diff group by every consumer group",
 	}, []string{"consumerGroup"})
 
