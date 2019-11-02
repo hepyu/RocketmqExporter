@@ -1,3 +1,25 @@
+## 微信技术公众号：千里行走
+
+<img src="https://github.com/hepyu/k8s-app-config/blob/master/images/%E5%8D%83%E9%87%8C%E8%A1%8C%E8%B5%B0.jpg" width="25%">
+
+## 实战交流群
+
+<img src="https://github.com/hepyu/saf/blob/master/images/k8s.png" width="25%">
+
+# Summary
+
+监控指标：消息堆积数，精确到进程粒度。
+
+监控目的：实时掌控消息消费的健康程度。
+
+数据来源：从rocketmq-console的http请求获取数据。也就是说RocketmqExporter必须依赖rocketmq-console。好吧，我承认我图省事儿了^_^。
+
+为什么自己要重新实现： 官方exporter是java的，相对费资源；另外我们要求对消息堆积数有完备监控，且精确到进程级别。
+从topic, consumerGroup, broker,queueId, consumerClientIP, consumerClientPID等维度对消息堆积数进行聚合，如下图：
+
+<img src="https://github.com/hepyu/k8s-app-config/blob/master/product/standard/grafana-prometheus-pro/exporter-mq-rocketmq/images/mesage-unconsumed-count.jpg" width="100%">
+
+效果图下载地址：https://github.com/hepyu/k8s-app-config/blob/master/product/standard/grafana-prometheus-pro/exporter-mq-rocketmq/images/mesage-unconsumed-count.jpg
 
 # Usage
 
@@ -13,6 +35,11 @@
 
 6.[如何进行容器化部署](https://github.com/hepyu/RocketmqExporter/wiki/%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2)
 
+7.[如何进行实体机部署](https://github.com/hepyu/RocketmqExporter/wiki/%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%AE%9E%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2)
 
+8.[如何结合prometheus与grafana
+](https://github.com/hepyu/RocketmqExporter/wiki/%E5%A6%82%E4%BD%95%E7%BB%93%E5%90%88prometheus%E4%B8%8Egrafana)
 
+# TODO
 
+后续有时间会把官方rocketmq-exporter的监控指标也用go重写。
