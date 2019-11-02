@@ -5,6 +5,7 @@ import (
 	"RocketmqExporter/model"
 	"RocketmqExporter/service"
 	"github.com/prometheus/client_golang/prometheus"
+	"strconv"
 )
 
 type Exporter struct {
@@ -80,7 +81,7 @@ func (exporter *Exporter) Collect(ch chan<- prometheus.Metric) {
 
 	var msg_Diff_Detail_Array []*model.MsgDiff_Detail = msgDiff.MsgDiff_Details
 	for _, e := range msg_Diff_Detail_Array {
-		exporter.msgDiffDetail.WithLabelValues(e.Topic, e.ConsumerGroup, e.Broker, string(e.QueueId), e.ConsumerClientIP, e.ConsumerClientPID).Set(float64(e.Diff))
+		exporter.msgDiffDetail.WithLabelValues(e.Topic, e.ConsumerGroup, e.Broker, strconv.Itoa(e.QueueId), e.ConsumerClientIP, e.ConsumerClientPID).Set(float64(e.Diff))
 	}
 
 	var msg_Diff_Topic_Map map[string]*model.MsgDiff_Topic = msgDiff.MsgDiff_Topics
@@ -105,7 +106,7 @@ func (exporter *Exporter) Collect(ch chan<- prometheus.Metric) {
 
 	var msg_Diff_Queue_Map map[string]*model.MsgDiff_Queue = msgDiff.MsgDiff_Queues
 	for _, v := range msg_Diff_Queue_Map {
-		exporter.msgDiffQueue.WithLabelValues(v.Broker, string(v.QueueId)).Set(float64(v.Diff))
+		exporter.msgDiffQueue.WithLabelValues(v.Broker, strconv.Itoa(v.QueueId)).Set(float64(v.Diff))
 	}
 
 	var msg_Diff_Clientinfo_Map map[string]*model.MsgDiff_ClientInfo = msgDiff.MsgDiff_ClientInfos
