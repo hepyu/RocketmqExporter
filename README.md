@@ -15,3 +15,6 @@
 
 7.[如何进行实体机部署](https://github.com/hepyu/RocketmqExporter/wiki/%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%AE%9E%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2)
 
+# TODO
+
+会把官方rocketmq-exporter的监控实现也用go重写到当前工程。
