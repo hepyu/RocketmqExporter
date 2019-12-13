@@ -79,39 +79,53 @@ func (exporter *Exporter) Collect(ch chan<- prometheus.Metric) {
 
 	var msgDiff *model.MsgDiff = service.MsgUnconsumedCount(rocketmqConsoleIPAndPort)
 
-	var msg_Diff_Detail_Array []*model.MsgDiff_Detail = msgDiff.MsgDiff_Details
-	for _, e := range msg_Diff_Detail_Array {
-		exporter.msgDiffDetail.WithLabelValues(e.Topic, e.ConsumerGroup, e.Broker, strconv.Itoa(e.QueueId), e.ConsumerClientIP, e.ConsumerClientPID).Set(float64(e.Diff))
+	if msgDiff != nil && msgDiff.MsgDiff_Details != nil {
+		var msg_Diff_Detail_Array []*model.MsgDiff_Detail = msgDiff.MsgDiff_Details
+		for _, e := range msg_Diff_Detail_Array {
+			exporter.msgDiffDetail.WithLabelValues(e.Topic, e.ConsumerGroup, e.Broker, strconv.Itoa(e.QueueId), e.ConsumerClientIP, e.ConsumerClientPID).Set(float64(e.Diff))
+		}
 	}
 
-	var msg_Diff_Topic_Map map[string]*model.MsgDiff_Topic = msgDiff.MsgDiff_Topics
-	for _, v := range msg_Diff_Topic_Map {
-		exporter.msgDiffTopic.WithLabelValues(v.Topic).Set(float64(v.Diff))
+	if msgDiff != nil && msgDiff.MsgDiff_Topics != nil {
+		var msg_Diff_Topic_Map map[string]*model.MsgDiff_Topic = msgDiff.MsgDiff_Topics
+		for _, v := range msg_Diff_Topic_Map {
+			exporter.msgDiffTopic.WithLabelValues(v.Topic).Set(float64(v.Diff))
+		}
 	}
 
-	var msg_Diff_ConsumerGroup_Map map[string]*model.MsgDiff_ConsumerGroup = msgDiff.MsgDiff_ConsumerGroups
-	for _, v := range msg_Diff_ConsumerGroup_Map {
-		exporter.msgDiffConsumerGroup.WithLabelValues(v.ConsumerGroup).Set(float64(v.Diff))
+	if msgDiff != nil && msgDiff.MsgDiff_ConsumerGroups != nil {
+		var msg_Diff_ConsumerGroup_Map map[string]*model.MsgDiff_ConsumerGroup = msgDiff.MsgDiff_ConsumerGroups
+		for _, v := range msg_Diff_ConsumerGroup_Map {
+			exporter.msgDiffConsumerGroup.WithLabelValues(v.ConsumerGroup).Set(float64(v.Diff))
+		}
 	}
 
-	var msg_Diff_Topic_ConsumerGroup_Map map[string]*model.MsgDiff_Topic_ConsumerGroup = msgDiff.MsgDiff_Topics_ConsumerGroups
-	for _, v := range msg_Diff_Topic_ConsumerGroup_Map {
-		exporter.msgDiffTopicAndConsumerGroup.WithLabelValues(v.Topic, v.ConsumerGroup).Set(float64(v.Diff))
+	if msgDiff != nil && msgDiff.MsgDiff_Topics_ConsumerGroups != nil {
+		var msg_Diff_Topic_ConsumerGroup_Map map[string]*model.MsgDiff_Topic_ConsumerGroup = msgDiff.MsgDiff_Topics_ConsumerGroups
+		for _, v := range msg_Diff_Topic_ConsumerGroup_Map {
+			exporter.msgDiffTopicAndConsumerGroup.WithLabelValues(v.Topic, v.ConsumerGroup).Set(float64(v.Diff))
+		}
 	}
 
-	var msg_Diff_Broker_Map map[string]*model.MsgDiff_Broker = msgDiff.MsgDiff_Brokers
-	for _, v := range msg_Diff_Broker_Map {
-		exporter.msgDiffBroker.WithLabelValues(v.Broker).Set(float64(v.Diff))
+	if msgDiff != nil && msgDiff.MsgDiff_Brokers != nil {
+		var msg_Diff_Broker_Map map[string]*model.MsgDiff_Broker = msgDiff.MsgDiff_Brokers
+		for _, v := range msg_Diff_Broker_Map {
+			exporter.msgDiffBroker.WithLabelValues(v.Broker).Set(float64(v.Diff))
+		}
 	}
 
-	var msg_Diff_Queue_Map map[string]*model.MsgDiff_Queue = msgDiff.MsgDiff_Queues
-	for _, v := range msg_Diff_Queue_Map {
-		exporter.msgDiffQueue.WithLabelValues(v.Broker, strconv.Itoa(v.QueueId)).Set(float64(v.Diff))
+	if msgDiff != nil && msgDiff.MsgDiff_Queues != nil {
+		var msg_Diff_Queue_Map map[string]*model.MsgDiff_Queue = msgDiff.MsgDiff_Queues
+		for _, v := range msg_Diff_Queue_Map {
+			exporter.msgDiffQueue.WithLabelValues(v.Broker, strconv.Itoa(v.QueueId)).Set(float64(v.Diff))
+		}
 	}
 
-	var msg_Diff_Clientinfo_Map map[string]*model.MsgDiff_ClientInfo = msgDiff.MsgDiff_ClientInfos
-	for _, v := range msg_Diff_Clientinfo_Map {
-		exporter.msgDiffClientinfo.WithLabelValues(v.ConsumerClientIP, v.ConsumerClientPID)
+	if msgDiff != nil && msgDiff.MsgDiff_ClientInfos != nil {
+		var msg_Diff_Clientinfo_Map map[string]*model.MsgDiff_ClientInfo = msgDiff.MsgDiff_ClientInfos
+		for _, v := range msg_Diff_Clientinfo_Map {
+			exporter.msgDiffClientinfo.WithLabelValues(v.ConsumerClientIP, v.ConsumerClientPID)
+		}
 	}
 
 	exporter.msgDiffDetail.Collect(ch)
